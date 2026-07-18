@@ -25,11 +25,11 @@
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <a href="#"
+                    <a href="{{ route('register') }}"
                         class="text-white rounded-md text-sm font-bold bg-green-500 px-4 py-2 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black">
                         Register
                     </a>
-                    <a href="#"
+                    <a href="{{ route('login') }}"
                         class="text-white rounded-md text-sm font-bold bg-green-500 px-4 py-2 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black  ">
                         Log in
                     </a>
@@ -45,8 +45,8 @@
                 <!-- Hero Content -->
                 <div class="flex flex-col items-end md:items-start w-full order-2 md:order-1">
                     <div
-                        class="inline-block bg-orange-400 text-black px-4 py-2 rounded-full text-sm font-semibold mb-6 border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)]">
-                        ⚡ AI Kitchen Assistant
+                        class="bg-orange-400 text-black px-4 py-2 rounded-full text-sm font-semibold mb-6 border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-2">
+                        <x-hugeicons-ai-brain-03 /> AI Kitchen Assistant
                     </div>
 
                     <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -59,9 +59,9 @@
                     </p>
 
                     <div class="self-start">
-                        <a href="#"
-                            class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-md font-bold shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black  text-center">
-                            Analisis Bahan
+                        <a href="{{ route('login') }}"
+                            class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-md font-bold shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black  text-center flex items-center gap-2">
+                            <x-heroicon-o-camera class="w-7" />Analisis Bahan
                         </a>
                     </div>
                 </div>
@@ -217,7 +217,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12 px-4 sm:px-6 lg:px-8">
+    <footer class="bg-gray-900 text-gray-400 py-8 px-4 sm:px-6 lg:px-8">
 
         <p class="text-center text-sm">
             &copy; 2026 CookLens. All rights reserved.
