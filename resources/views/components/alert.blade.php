@@ -26,7 +26,7 @@
 
 @if (count($allMessages))
     <div
-        {{ $attributes->merge(['class' => "$positional border-3 border-black px-4 py-3 shadow-[6px_6px_0px_rgba(0,0,0,1)] $colors $class"]) }}
+        {{ $attributes->merge(['class' => "$positional border-3 border-black px-4 py-3 shadow-[6px_6px_0px_rgba(0,0,0,1)]  $colors $class"]) }}
         data-alert
         role="alert"
     >
@@ -36,7 +36,7 @@
             </div>
             <div class="flex-1 space-y-1">
                 @foreach ($allMessages as $msg)
-                    <p class="text-sm font-bold">{{ $msg }}</p>
+                    <p class="text-base font-bold">{{ $msg }}</p>
                 @endforeach
             </div>
             @if ($dismissible || $floating)
