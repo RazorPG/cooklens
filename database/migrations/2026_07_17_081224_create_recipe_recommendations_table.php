@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -14,11 +15,11 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('analysis_id')->constrained()->onDelete('cascade');
             $table->string('recipe_name');
-            $table->integer("match_percentage")->unsigned();
-            $table->integer("cooking_time")->unsigned();
-            $table->string("difficulty");
-            $table->text("reason");
-            $table->json("recipe_data");
+            $table->integer('match_percentage')->unsigned();
+            $table->integer('cooking_time')->unsigned();
+            $table->string('difficulty');
+            $table->text('reason');
+            $table->json('recipe_data');
             $table->timestamps();
         });
     }

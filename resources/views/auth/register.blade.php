@@ -21,6 +21,9 @@
             </p>
         </div>
     </section>
+    <x-alert floating type="success" :message="session('status')" />
+
+    <x-alert floating type="error" :message="$errors->first()" />
 @endsection
 
 @section('right')
@@ -32,7 +35,7 @@
                 <h2 class="text-2xl font-black text-gray-900">Buat akun baru</h2>
             </div>
 
-            <form action="#" method="POST" class="mt-6 space-y-5">
+            <form action="{{ route('register') }}" method="POST" class="mt-6 space-y-5">
                 @csrf
 
                 <div class="space-y-2">
@@ -40,7 +43,7 @@
                     <div
                         class="flex items-center gap-3 border-3 border-black bg-[#faf7f2] px-4 py-3 shadow-[4px_4px_0px_rgba(0,0,0,1)] transition focus-within:-translate-y-0.5 focus-within:bg-white">
                         <x-heroicon-o-user class="h-5 w-5 shrink-0 text-gray-500" aria-hidden="true" />
-                        <input id="name" name="name" type="text" autocomplete="name" placeholder="Siapa namamu?"
+                        <input id="name" name="name" type="text" value="{{ old('name') }}" autocomplete="name" placeholder="Siapa namamu?"
                             class="w-full border-0 bg-transparent p-0 text-base text-gray-900 outline-none placeholder:text-gray-400 focus:ring-0">
                     </div>
                 </div>
@@ -50,7 +53,7 @@
                     <div
                         class="flex items-center gap-3 border-3 border-black bg-[#faf7f2] px-4 py-3 shadow-[4px_4px_0px_rgba(0,0,0,1)] transition focus-within:-translate-y-0.5 focus-within:bg-white">
                         <x-heroicon-o-envelope class="h-5 w-5 shrink-0 text-gray-500" aria-hidden="true" />
-                        <input id="email" name="email" type="email" autocomplete="email" placeholder="namamu@email.com"
+                        <input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="email" placeholder="namamu@email.com"
                             class="w-full border-0 bg-transparent p-0 text-base text-gray-900 outline-none placeholder:text-gray-400 focus:ring-0">
                     </div>
                 </div>
@@ -91,5 +94,13 @@
                     di sini</a>
             </p>
         </div>
+
+        @push('scripts')
+            @if (session('status'))
+                <script>
+                    setTimeout(() => window.location.href = '/', 2000);
+                </script>
+            @endif
+        @endpush
     </section>
 @endsection

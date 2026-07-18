@@ -16,6 +16,8 @@
 </head>
 
 <body class="bg-[#fcf9f8] text-gray-900 font-['Nunito_Sans']">
+
+    <x-alert floating type="success" :message="session('status')" />
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 bg-[#fcf9f8] border-b-3 border-gray-400 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-4">
@@ -148,7 +150,7 @@
                                     class="bg-white border-3 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] rounded-xl p-3 flex items-center gap-4 w-full">
                                     <div
                                         class="w-12 h-12 rounded-lg border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] overflow-hidden shrink-0">
-                                        <img src="{{ asset('img/hero.png') }}" alt="Unggah Foto"
+                                        <img src="{{ asset('img/examp.jpg') }}" alt="Unggah Foto"
                                             class="w-full h-full object-cover">
                                     </div>
                                     <div>
@@ -223,6 +225,7 @@
             &copy; 2026 CookLens. All rights reserved.
         </p>
     </footer>
+    @stack('scripts')
 </body>
 
 </html>
