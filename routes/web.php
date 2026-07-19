@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::get('/analisis', [AnalysisController::class, 'index'])->name('analisis');
+    Route::post('/analisis', [AnalysisController::class, 'store'])->name('analisis.store');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
