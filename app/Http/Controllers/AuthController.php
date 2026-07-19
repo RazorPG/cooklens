@@ -45,7 +45,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
         $request->session()->flash('status', 'Selamat datang kembali!');
 
-        return redirect()->intended('/');
+        return redirect()->intended('/dashboard');
     }
 
     public function logout(Request $request): RedirectResponse

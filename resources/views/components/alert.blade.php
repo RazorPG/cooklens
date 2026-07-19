@@ -10,8 +10,8 @@
 @php
     $isError = $type === 'error';
     $colors = $isError
-        ? 'border-red-600 bg-red-50 text-red-800'
-        : 'border-green-600 bg-green-50 text-green-800';
+        ? 'border-red-600 bg-red-50 text-red-800 shadow-[4px_4px_0px_rgba(220,38,38,1)]'
+        : 'border-green-600 bg-green-50 text-green-800 shadow-[4px_4px_0px_rgba(22,163,74,1)]';
     $icon = $isError
         ? 'heroicon-o-x-circle'
         : 'heroicon-o-check-circle';
@@ -26,7 +26,7 @@
 
 @if (count($allMessages))
     <div
-        {{ $attributes->merge(['class' => "$positional border-3 border-black px-4 py-3 shadow-[6px_6px_0px_rgba(0,0,0,1)]  $colors $class"]) }}
+        {{ $attributes->merge(['class' => "$positional border-3 border-black px-4 py-3 $colors $class"]) }}
         data-alert
         role="alert"
     >
@@ -36,7 +36,7 @@
             </div>
             <div class="flex-1 space-y-1">
                 @foreach ($allMessages as $msg)
-                    <p class="text-base font-bold">{{ $msg }}</p>
+                    <p class="text-lg font-bold">{{ $msg }}</p>
                 @endforeach
             </div>
             @if ($dismissible || $floating)

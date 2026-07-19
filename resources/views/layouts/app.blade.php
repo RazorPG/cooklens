@@ -31,7 +31,7 @@
 
                 <div class="flex items-center gap-6">
                     <a href="{{ route('dashboard') }}" class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('dashboard') ? 'text-green-500' : '' }}">Dashboard</a>
-                    <a href="#" class="font-bold text-gray-700 hover:text-green-500">Analisis</a>
+                    <a href="{{ route('analisis') }}" class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('analisis') ? 'text-green-500' : '' }}">Analisis</a>
                     <a href="#" class="font-bold text-gray-700 hover:text-green-500">Riwayat</a>
                     
                     <form method="POST" action="{{ route('logout') }}" class="inline m-0">
