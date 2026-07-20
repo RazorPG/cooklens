@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CookLens - Ubah Bahan Makanan Menjadi Masakan Lezat</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -19,8 +20,8 @@
 
     <x-alert floating type="success" :message="session('status')" />
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-[#fcf9f8] border-b-3 border-gray-400 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-4">
+    <nav class="fixed top-0 left-0 right-0 bg-[#fcf9f8] border-b-3 border-gray-400 z-50 px-4 md:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto py-2 md:py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-2">
                     <img src="{{ asset('img/cooklens-app.png') }}" alt="CookLens" class="h-15">
@@ -28,11 +29,11 @@
 
                 <div class="flex items-center gap-4">
                     <a href="{{ route('register') }}"
-                        class="text-white rounded-md text-sm font-bold bg-green-500 px-4 py-2 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black">
+                        class="text-white rounded-md text-sm font-bold bg-green-500 px-4 py-2 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black transition-all active:shadow-none active:translate-y-1 active:translate-x-1">
                         Register
                     </a>
                     <a href="{{ route('login') }}"
-                        class="text-white rounded-md text-sm font-bold bg-green-500 px-4 py-2 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black  ">
+                        class="text-white rounded-md text-sm font-bold bg-green-500 px-4 py-2 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black transition-all active:shadow-none active:translate-y-1 active:translate-x-1">
                         Log in
                     </a>
                 </div>
@@ -42,12 +43,12 @@
 
     <!-- Hero Section -->
     <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 h-screen">
-        <div class="max-w-6xl mx-auto h-full flex justify-center">
+        <div class="max-w-7xl mx-auto h-full flex justify-center">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-12 items-center">
                 <!-- Hero Content -->
                 <div class="flex flex-col items-end md:items-start w-full order-2 md:order-1">
                     <div
-                        class="bg-orange-400 text-black px-4 py-2 rounded-full text-sm font-semibold mb-6 border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-2">
+                        class="bg-orange-400 text-black px-4 py-2 rounded-full text-sm font-semibold my-6 border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-2">
                         <x-hugeicons-ai-brain-03 /> AI Kitchen Assistant
                     </div>
 
@@ -81,7 +82,7 @@
 
     <!-- Features Section -->
     <section id="features" class="py-16 md:py-32 px-4 sm:px-6 lg:px-8 bg-[#fcf9f8]">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl font-bold text-center mb-4">Fitur Andalan CookLens</h2>
             <p class="text-center text-gray-600 mb-12 text-lg">Tiga langkah mudah menuju perut kenyang.</p>
 
@@ -132,7 +133,7 @@
 
     <!-- How It Works Section -->
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-[#fcf9f8]">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-7xl mx-auto">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <!-- Timeline -->
                 <div class="relative order-2 md:order-1">

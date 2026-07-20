@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CookLens - @yield('title', 'Dashboard')</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -18,22 +19,25 @@
 <body class="bg-[#fcf9f8] text-gray-900 font-['Nunito_Sans'] min-h-screen flex flex-col">
 
     <x-alert floating type="success" :message="session('status')" />
-    
+
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-[#fcf9f8] border-b-3 border-gray-400 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-4">
+    <nav class="fixed top-0 left-0 right-0 bg-[#fcf9f8] border-b-3 border-gray-400 z-50 px-4 md:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto py-2 md:py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-2">
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('img/cooklens-app.png') }}" alt="CookLens" class="h-15">
+                        <img src="{{ asset('img/cooklens-app.png') }}" alt="CookLens" class="md:h-15 h-10">
                     </a>
                 </div>
 
-                <div class="flex items-center gap-6">
-                    <a href="{{ route('dashboard') }}" class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('dashboard') ? 'text-green-500' : '' }}">Dashboard</a>
-                    <a href="{{ route('analisis') }}" class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('analisis') ? 'text-green-500' : '' }}">Analisis</a>
-                    <a href="{{ route('riwayat') }}" class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('riwayat*') ? 'text-green-500' : '' }}">Riwayat</a>
-                    
+                <div class="flex items-center gap-6 text-sm md:text-base">
+                    <a href="{{ route('dashboard') }}"
+                        class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('dashboard') ? 'text-green-500' : '' }}">Dashboard</a>
+                    <a href="{{ route('analisis') }}"
+                        class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('analisis') ? 'text-green-500' : '' }}">Analisis</a>
+                    <a href="{{ route('riwayat') }}"
+                        class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('riwayat*') ? 'text-green-500' : '' }}">Riwayat</a>
+
                     <form method="POST" action="{{ route('logout') }}" class="inline m-0">
                         @csrf
                         <button type="submit"
@@ -59,7 +63,7 @@
             &copy; {{ date('Y') }} CookLens. All rights reserved.
         </p>
     </footer>
-    
+
     @stack('scripts')
 </body>
 

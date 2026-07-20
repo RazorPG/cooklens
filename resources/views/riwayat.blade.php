@@ -36,7 +36,7 @@
                             class="w-full md:w-20 h-36 md:h-20 border-2 border-black rounded-lg overflow-hidden shrink-0 bg-gray-100">
                             <img src="{{ $analysis->image_path }}" alt="Bahan Makanan" class="w-full h-full object-cover">
                         </div>
-                        <div class="flex-grow w-full md:w-auto">
+                        <div class="grow w-full md:w-auto">
                             <div class="flex flex-wrap items-center gap-2 mb-1">
                                 <h3 class="font-bold text-xl text-gray-900">
                                     {{ $firstRec?->recipe_name ?? 'Analisis #' . $analysis->id }}
@@ -84,7 +84,7 @@
 
             @if ($analyses->hasPages())
                 <div class="mt-6">
-                    {{ $analyses->links() }}
+                    {{ $analyses->links('components.pagination') }}
                 </div>
             @endif
         @endif

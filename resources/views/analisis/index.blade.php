@@ -24,7 +24,7 @@
                         <img src="{{ $latest->image_path }}" alt="Bahan Makanan"
                             class="w-full h-48 lg:h-40 object-cover rounded-xl border-3 border-black">
                     </div>
-                    <div class="flex-grow">
+                    <div class="grow">
                         <h4 class="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2">
                             <x-heroicon-o-square-3-stack-3d class="w-5 h-5 text-green-600" />
                             Bahan Terdeteksi
@@ -93,7 +93,7 @@
             <!-- Hero -->
             <div class="bg-white rounded-xl p-8 border-3 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)]">
                 <h2 class="text-3xl font-bold mb-6 text-gray-900 flex items-center gap-3">
-                    Analisis Bahan Makanan
+                   <x-ri-ai-generate-2-line class="w-8 h-8" /> Analisis Bahan Makanan
                 </h2>
                 <p class="text-gray-600 text-lg">
                     Unggah foto bahan makanan yang kamu miliki, dan biarkan AI CookLens
@@ -136,7 +136,8 @@
                     <!-- Upload Panel -->
                     <div id="panel-upload" class="hidden" data-panel>
                         <label for="file-input"
-                            class="flex flex-col items-center justify-center w-full min-h-[260px] border-2 border-dashed border-gray-400 rounded-xl bg-[#fcf9f8] cursor-pointer hover:border-green-500 hover:bg-green-50/30 transition-all p-8 group">
+                            data-dropzone
+                            class="flex flex-col items-center justify-center w-full min-h-65 border-2 border-dashed border-gray-400 rounded-xl bg-[#fcf9f8] cursor-pointer hover:border-green-500 hover:bg-green-50/30 transition-all duration-200 p-8 group">
                             <div class="flex flex-col items-center gap-4 pointer-events-none">
                                 <div
                                     class="w-16 h-16 bg-green-100 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] group-hover:shadow-[5px_5px_0px_rgba(0,0,0,1)] group-hover:-translate-y-0.5 group-hover:-translate-x-0.5 transition-all">
@@ -151,26 +152,34 @@
                     </div>
 
                     <!-- Camera Panel -->
-                    <div id="panel-camera" class="hidden" data-panel>
-                        <label for="file-input"
-                            class="flex flex-col items-center justify-center w-full min-h-[260px] border-2 border-black rounded-xl bg-gray-100 cursor-pointer hover:bg-gray-200 transition-all p-8 group">
-                            <div class="flex flex-col items-center gap-4 pointer-events-none">
-                                <div
-                                    class="w-16 h-16 bg-blue-100 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] group-hover:shadow-[5px_5px_0px_rgba(0,0,0,1)] group-hover:-translate-y-0.5 group-hover:-translate-x-0.5 transition-all">
+                    <div id="panel-camera" class="hidden relative" data-panel>
+                        <div class="relative w-full min-h-65 border-2 border-black rounded-xl bg-black overflow-hidden">
+                            <video id="camera-feed" class="w-full h-full object-cover" autoplay playsinline muted></video>
+                            <canvas id="camera-canvas" class="hidden"></canvas>
+
+                            <div id="camera-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 p-4 text-center">
+                                <div class="w-16 h-16 bg-blue-100 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)]">
                                     <x-heroicon-o-camera class="w-8 h-8 text-blue-600" />
                                 </div>
-                                <div class="text-center">
-                                    <p class="text-lg font-bold text-gray-800">Ketuk untuk mengambil foto</p>
-                                    <p class="text-sm text-gray-500 mt-1">Gunakan kamera perangkat untuk memotret bahan makanan
-                                    </p>
-                                </div>
+                                <p class="text-lg font-bold text-gray-800 mt-4">Akses kamera diperlukan</p>
+                                <p class="text-sm text-gray-500 mt-1">Izinkan akses kamera untuk memotret bahan makanan</p>
+                                <button type="button" id="start-camera-btn"
+                                    class="mt-4 px-6 py-2.5 bg-blue-500 text-white font-bold border-2 border-black rounded-lg shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all">
+                                    Nyalakan Kamera
+                                </button>
+                                <p id="camera-error" class="text-sm text-red-600 font-semibold mt-3 hidden"></p>
                             </div>
-                        </label>
+
+                            <button type="button" id="capture-btn"
+                                class="absolute bottom-4 left-1/2 -translate-x-1/2 w-14 h-14 bg-white border-4 border-black rounded-full shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:bg-gray-200 transition-all hidden z-10">
+                                <span class="block w-9 h-9 bg-red-500 rounded-full mx-auto"></span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Preview -->
                     <div id="preview-container"
-                        class="hidden relative w-full min-h-[260px] rounded-xl overflow-hidden border-3 border-black bg-gray-900"
+                        class="hidden relative w-full min-h-65 rounded-xl overflow-hidden border-3 border-black bg-gray-900"
                         data-panel>
                         <img id="preview-image" class="w-full h-full absolute inset-0 object-contain" alt="Preview">
                         <button type="button" id="reset-preview"
@@ -264,9 +273,89 @@
             const previewImage = document.getElementById('preview-image');
             const resetBtn = document.getElementById('reset-preview');
 
+            const cameraFeed = document.getElementById('camera-feed');
+            const cameraCanvas = document.getElementById('camera-canvas');
+            const cameraPlaceholder = document.getElementById('camera-placeholder');
+            const startCameraBtn = document.getElementById('start-camera-btn');
+            const captureBtn = document.getElementById('capture-btn');
+            const cameraError = document.getElementById('camera-error');
+
+            let cameraStream = null;
+
             function showPanel(id) {
                 panels.forEach(p => p.classList.add('hidden'));
-                document.getElementById(id).classList.remove('hidden');
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('hidden');
+            }
+
+            async function startCamera() {
+                try {
+                    cameraError.classList.add('hidden');
+
+                    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                        throw new DOMException('', 'NotSupportedError');
+                    }
+
+                    cameraStream = await navigator.mediaDevices.getUserMedia({
+                        video: { width: { ideal: 1280 }, height: { ideal: 720 } },
+                        audio: false,
+                    });
+                    cameraFeed.srcObject = cameraStream;
+                    await cameraFeed.play();
+                    cameraPlaceholder.classList.add('hidden');
+                    captureBtn.classList.remove('hidden');
+                } catch (err) {
+                    let msg = `Tidak dapat mengakses kamera (${err.name}).`;
+                    if (err.name === 'NotAllowedError') {
+                        msg = 'Izin kamera ditolak. Izinkan akses kamera di pengaturan browser.';
+                    } else if (err.name === 'NotFoundError') {
+                        msg = 'Tidak ditemukan kamera pada perangkat ini.';
+                    } else if (err.name === 'NotReadableError') {
+                        msg = 'Kamera sedang digunakan oleh aplikasi lain.';
+                    } else if (err.name === 'SecurityError') {
+                        msg = 'Akses kamera tidak diizinkan. Pastikan halaman diakses via HTTPS (herd secure cooklens-app).';
+                    } else if (err.name === 'NotSupportedError' || err.name === 'TypeError') {
+                        msg = 'Akses kamera membutuhkan HTTPS. Jalankan: herd secure cooklens-app';
+                    }
+                    cameraError.textContent = msg;
+                    cameraError.classList.remove('hidden');
+                }
+            }
+
+            function stopCamera() {
+                if (cameraStream) {
+                    cameraStream.getTracks().forEach(t => t.stop());
+                    cameraStream = null;
+                }
+                cameraFeed.srcObject = null;
+                captureBtn.classList.add('hidden');
+                cameraPlaceholder.classList.remove('hidden');
+                cameraError.classList.add('hidden');
+            }
+
+            function capturePhoto() {
+                const w = cameraFeed.videoWidth;
+                const h = cameraFeed.videoHeight;
+                cameraCanvas.width = w;
+                cameraCanvas.height = h;
+                const ctx = cameraCanvas.getContext('2d');
+                ctx.drawImage(cameraFeed, 0, 0, w, h);
+
+                cameraCanvas.toBlob(function (blob) {
+                    const file = new File([blob], 'camera-capture.jpg', { type: 'image/jpeg' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result;
+                        panels.forEach(p => p.classList.add('hidden'));
+                        previewContainer.classList.remove('hidden');
+                        stopCamera();
+                    };
+                    reader.readAsDataURL(file);
+                }, 'image/jpeg', 0.92);
             }
 
             tabRadios.forEach(radio => {
@@ -274,14 +363,56 @@
                     if (!this.checked) return;
 
                     if (this.id === 'tab_camera') {
-                        fileInput.setAttribute('capture', 'environment');
+                        captureBtn.classList.add('hidden');
+                        showPanel('panel-camera');
+                        cameraPlaceholder.classList.remove('hidden');
+                        cameraError.classList.add('hidden');
                     } else {
-                        fileInput.removeAttribute('capture');
-                    }
+                        if (cameraStream) stopCamera();
+            const dropzone = document.querySelector('[data-dropzone]');
 
-                    showPanel(this.id === 'tab_upload' ? 'panel-upload' : 'panel-camera');
+            if (dropzone) {
+                ['dragenter', 'dragover'].forEach(type => {
+                    dropzone.addEventListener(type, function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.classList.add('border-green-500', 'bg-green-100');
+                    });
+                });
+
+                ['dragleave', 'drop'].forEach(type => {
+                    dropzone.addEventListener(type, function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.classList.remove('border-green-500', 'bg-green-100');
+                    });
+                });
+
+                dropzone.addEventListener('drop', function (e) {
+                    const file = e.dataTransfer.files[0];
+                    if (!file || !file.type.startsWith('image/')) return;
+
+                    const dt = new DataTransfer();
+                    dt.items.add(file);
+                    fileInput.files = dt.files;
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result;
+                        panels.forEach(p => p.classList.add('hidden'));
+                        previewContainer.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            showPanel('panel-upload');
+                    }
                 });
             });
+
+            startCameraBtn.addEventListener('click', startCamera);
+            captureBtn.addEventListener('click', capturePhoto);
 
             fileInput.addEventListener('change', function () {
                 const file = this.files[0];
@@ -292,6 +423,7 @@
                     previewImage.src = e.target.result;
                     panels.forEach(p => p.classList.add('hidden'));
                     previewContainer.classList.remove('hidden');
+                    if (cameraStream) stopCamera();
                 };
                 reader.readAsDataURL(file);
             });

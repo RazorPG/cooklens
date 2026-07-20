@@ -19,7 +19,7 @@ class AnalysisController extends Controller
             ->take(10)
             ->get();
 
-        return view('analisis', compact('analyses'));
+        return view('analisis.index', compact('analyses'));
     }
 
     public function history(Request $request): View

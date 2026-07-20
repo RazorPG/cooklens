@@ -25,7 +25,7 @@
                     <img src="{{ $analysis->image_path }}" alt="Bahan Makanan"
                         class="w-full h-56 lg:h-48 object-cover rounded-xl border-3 border-black">
                 </div>
-                <div class="flex-grow">
+                <div class="grow">
                     <h3 class="text-xl font-bold mb-4 text-gray-900 flex items-center gap-2">
                         <x-heroicon-o-square-3-stack-3d class="w-6 h-6 text-green-600" />
                         Bahan-bahan yang Terdeteksi
