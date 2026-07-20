@@ -52,7 +52,7 @@
     <script>
         document.querySelectorAll('[data-alert]').forEach(alert => {
             const dismiss = () => alert.remove();
-            const timer = setTimeout(dismiss, 3000);
+            const timer = setTimeout(dismiss, 5000);
 
             alert.querySelectorAll('[data-dismiss-entry]').forEach(btn => {
                 btn.addEventListener('click', () => {

@@ -15,7 +15,7 @@
     @endif
 </head>
 
-<body class="bg-[#fcf9f8] text-gray-900 font-['Nunito_Sans']">
+<body class="bg-[#fcf9f8] text-gray-900 font-['Nunito_Sans'] min-h-screen flex flex-col">
 
     <x-alert floating type="success" :message="session('status')" />
     
@@ -32,7 +32,7 @@
                 <div class="flex items-center gap-6">
                     <a href="{{ route('dashboard') }}" class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('dashboard') ? 'text-green-500' : '' }}">Dashboard</a>
                     <a href="{{ route('analisis') }}" class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('analisis') ? 'text-green-500' : '' }}">Analisis</a>
-                    <a href="#" class="font-bold text-gray-700 hover:text-green-500">Riwayat</a>
+                    <a href="{{ route('riwayat') }}" class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('riwayat*') ? 'text-green-500' : '' }}">Riwayat</a>
                     
                     <form method="POST" action="{{ route('logout') }}" class="inline m-0">
                         @csrf
@@ -47,7 +47,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <main class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 flex-1">
         <div class="max-w-7xl mx-auto">
             @yield('content')
         </div>
