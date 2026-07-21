@@ -27,7 +27,7 @@
 <body class="flex min-h-screen flex-col overflow-hidden bg-[#f9fafb] text-gray-900 font-['Nunito_Sans']">
     <main class="relative flex justify-center items-center flex-1 overflow-hidden">
 
-        <div class="relative mx-auto flex h-full w-full max-w-7xl items-center px-4 py-8 sm:px-6 lg:px-8">
+        <div class="relative mx-auto flex h-full w-full max-w-7xl items-center px-4 py-8">
             <div class="grid w-full gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
                 @yield('left')
 

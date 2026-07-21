@@ -15,16 +15,16 @@
 
         <!-- Quick Action: Analisis -->
         <div
-            class="bg-green-400 rounded-xl p-8 border-3 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] flex flex-col md:flex-row items-center justify-between gap-6">
+            class="bg-green-400 rounded-xl p-6 sm:p-8 border-3 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-                <h3 class="text-2xl font-bold text-black mb-2 flex items-center gap-3">
-                    <span class="text-3xl">📸</span> Analisis Bahan Makanan Baru
+                <h3 class="text-xl sm:text-2xl font-bold text-black mb-2 flex items-center gap-3">
+                    <span class="text-2xl sm:text-3xl">📸</span> Analisis Bahan Makanan Baru
                 </h3>
-                <p class="text-green-950 font-semibold text-lg">Punya sisa bahan di kulkas? Unggah fotonya dan biar AI kami
+                <p class="text-green-950 font-semibold text-base sm:text-lg">Punya sisa bahan di kulkas? Unggah fotonya dan biar AI kami
                     menemukan resep lezat untukmu!</p>
             </div>
             <a href="{{ route('analisis') }}"
-                class="shrink-0 bg-white text-black font-bold text-lg px-8 py-4 rounded-xl border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all flex items-center gap-2">
+                class="w-full sm:w-auto text-center shrink-0 bg-white text-black font-bold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-xl border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-2">
                 <x-heroicon-o-camera class="w-7" /> Mulai Analisis
             </a>
         </div>

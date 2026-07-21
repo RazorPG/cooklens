@@ -65,7 +65,7 @@ class AnalysisController extends Controller
             $uploaded = Cloudinary::uploadApi()->upload(
                 $localPath,
                 [
-                    'folder' => 'cooklens/analysis/' . auth()->id(),
+                    'folder' => 'cooklens/analysis/'.auth()->id(),
                 ]
             );
 
@@ -93,7 +93,7 @@ class AnalysisController extends Controller
                 ->with('status', 'Gambar berhasil dianalisis!')
                 ->with('latest_analysis', $analysis);
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal menganalisis gambar: ' . $e->getMessage())->withInput();
+            return back()->with('error', 'Gagal menganalisis gambar: '.$e->getMessage())->withInput();
         }
     }
 }

@@ -30,7 +30,8 @@
                     </a>
                 </div>
 
-                <div class="flex items-center gap-6 text-sm md:text-base">
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center gap-6 text-sm md:text-base">
                     <a href="{{ route('dashboard') }}"
                         class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('dashboard') ? 'text-green-500' : '' }}">Dashboard</a>
                     <a href="{{ route('analisis') }}"
@@ -46,12 +47,40 @@
                         </button>
                     </form>
                 </div>
+
+                <!-- Mobile Hamburger -->
+                <button id="hamburger-btn" class="lg:hidden flex items-center p-2 -mr-2" aria-label="Menu">
+                    <svg id="hamburger-icon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
             </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t-3 border-gray-400 bg-[#fcf9f8] px-4 py-6 space-y-4">
+            <a href="{{ route('dashboard') }}"
+                class="block font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('dashboard') ? 'text-green-500' : '' }}">Dashboard</a>
+            <a href="{{ route('analisis') }}"
+                class="block font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('analisis') ? 'text-green-500' : '' }}">Analisis</a>
+            <a href="{{ route('riwayat') }}"
+                class="block font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('riwayat*') ? 'text-green-500' : '' }}">Riwayat</a>
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit"
+                    class="w-full text-center text-white rounded-md text-sm font-bold bg-red-500 hover:bg-red-600 px-4 py-3 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black transition-all active:shadow-none active:translate-y-1 active:translate-x-1">
+                    Logout
+                </button>
+            </form>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 flex-1">
+    <main class="pt-24 md:pt-32 pb-16 px-4 sm:px-6 lg:px-8 flex-1">
         <div class="max-w-7xl mx-auto">
             @yield('content')
         </div>
@@ -64,6 +93,16 @@
         </p>
     </footer>
 
+    <script>
+        document.getElementById('hamburger-btn')?.addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger-icon');
+            const close = document.getElementById('close-icon');
+            menu.classList.toggle('hidden');
+            hamburger.classList.toggle('hidden');
+            close.classList.toggle('hidden');
+        });
+    </script>
     @stack('scripts')
 </body>
 

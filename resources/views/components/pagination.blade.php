@@ -7,7 +7,7 @@
                 @endif
             </div>
 
-            <div class="flex gap-2 items-center">
+            <div class="flex gap-2 items-center flex-wrap justify-center">
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
                     <span class="inline-flex items-center justify-center w-10 h-10 border-3 border-black rounded-lg bg-[#fcf9f8] text-gray-400 shadow-[3px_3px_0px_rgba(0,0,0,1)] opacity-40 cursor-not-allowed">

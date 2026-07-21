@@ -44,7 +44,7 @@
         @php $count = $analysis->recommendations->count(); @endphp
 
         @if ($count > 1)
-            <div class="flex gap-3 flex-wrap">
+            <div class="flex gap-3 overflow-x-auto flex-nowrap pb-2">
                 @foreach ($analysis->recommendations as $i => $rec)
                     <button type="button" data-tab="{{ $i }}"
                         class="tab-btn px-6 py-3 rounded-xl font-bold border-3 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all bg-[#fcf9f8] text-gray-700 hover:bg-green-50"

@@ -27,7 +27,8 @@
                     <img src="{{ asset('img/cooklens-app.png') }}" alt="CookLens" class="h-15">
                 </div>
 
-                <div class="flex items-center gap-4">
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-4">
                     <a href="{{ route('register') }}"
                         class="text-white rounded-md text-sm font-bold bg-green-500 px-4 py-2 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black transition-all active:shadow-none active:translate-y-1 active:translate-x-1">
                         Register
@@ -37,33 +38,60 @@
                         Log in
                     </a>
                 </div>
+
+                <!-- Mobile Hamburger -->
+                <button id="welcome-hamburger-btn" class="md:hidden flex items-center p-2 -mr-2" aria-label="Menu">
+                    <!-- Simplified hamburger (three bars) -->
+                    <span id="welcome-hamburger-icon" class="w-7 h-7 flex flex-col justify-between items-center">
+                        <span class="block w-7 h-1 bg-current"></span>
+                        <span class="block w-7 h-1 bg-current"></span>
+                        <span class="block w-7 h-1 bg-current"></span>
+                    </span>
+
+                    <!-- Simplified close (times) -->
+                    <span id="welcome-close-icon"
+                        class="w-7 h-7 hidden flex items-center justify-center text-4xl leading-none">&times;</span>
+                </button>
             </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="welcome-mobile-menu"
+            class="hidden md:hidden border-t-3 border-gray-400 bg-[#fcf9f8] px-4 py-6 space-y-4">
+            <a href="{{ route('register') }}"
+                class="block w-full text-center text-white rounded-md text-sm font-bold bg-green-500 px-4 py-3 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black transition-all active:shadow-none active:translate-y-1 active:translate-x-1">
+                Register
+            </a>
+            <a href="{{ route('login') }}"
+                class="block w-full text-center text-white rounded-md text-sm font-bold bg-green-500 px-4 py-3 shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black transition-all active:shadow-none active:translate-y-1 active:translate-x-1">
+                Log in
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 h-screen">
+    <section class="pt-24 md:pt-32 pb-0 md:pb-16 px-4 sm:px-6 lg:px-8 h-screen">
         <div class="max-w-7xl mx-auto h-full flex justify-center">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-12 items-center">
+            <div class="flex flex-col md:grid md:grid-cols-2 gap-0 md:gap-12 md:items-center">
                 <!-- Hero Content -->
-                <div class="flex flex-col items-end md:items-start w-full order-2 md:order-1">
+                <div class="flex flex-col items-end md:items-start w-full flex-none order-2 md:order-1">
                     <div
                         class="bg-orange-400 text-black px-4 py-2 rounded-full text-sm font-semibold my-6 border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] flex items-center justify-center gap-2">
                         <x-hugeicons-ai-brain-03 /> AI Kitchen Assistant
                     </div>
 
-                    <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                    <h1 class="text-2xl md:text-3xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                         Ubah <span class="text-green-500">Bahan Makanan</span> Menjadi Masakan Lezat
                     </h1>
 
-                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                    <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
                         Unggah foto bahan makananmu dan biarkan AI kami menemukanmu resep yang bisa langsung dimasak.
                         Tidak perlu lagi binggu mau masak apa hari ini!
                     </p>
 
                     <div class="self-start">
                         <a href="{{ route('login') }}"
-                            class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-md font-bold shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black  text-center flex items-center gap-2">
+                            class="bg-green-500 hover:bg-green-600 text-white px-4 md:px-6 lg:px-8 py-3 rounded-md font-bold shadow-[5px_5px_0px_rgba(0,0,0,1)] border-3 border-black text-base md:text-lg lg:text-xl text-center flex items-center gap-2 mb-4">
                             <x-heroicon-o-camera class="w-7" />Analisis Bahan
                         </a>
                     </div>
@@ -71,7 +99,7 @@
 
                 <!-- Hero Image -->
                 <div
-                    class="rounded-2xl flex items-center justify-center aspect-square max-w-90 md:max-w-full w-full overflow-hidden border-4 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] mx-auto order-1 md:order-2">
+                    class="rounded-2xl flex items-center justify-center flex-1 min-h-0 w-full md:aspect-square md:max-w-full overflow-hidden border-4 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] md:mx-auto order-1 md:order-2">
                     <img src="{{ asset('img/hero.png') }}" alt="Hero Image" class="w-full h-full object-cover">
                 </div>
             </div>
@@ -138,13 +166,13 @@
                 <!-- Timeline -->
                 <div class="relative order-2 md:order-1">
                     <div
-                        class="bg-white rounded-3xl border-3 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] py-10 pr-8 pl-14 ml-6">
-                        <div class="flex flex-col gap-10">
+                        class="bg-white rounded-3xl border-3 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] py-6 sm:py-10 pr-6 sm:pr-8 pl-10 sm:pl-14 ml-4 sm:ml-6">
+                        <div class="flex flex-col gap-6 sm:gap-10">
 
                             <!-- Step 1 -->
-                            <div class="flex items-center gap-5 relative">
+                            <div class="flex items-center gap-4 sm:gap-5 relative">
                                 <div
-                                    class="absolute -left-19 w-10 h-10 bg-[#1a6b41] border-3 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] text-white font-bold">
+                                    class="absolute -left-14 sm:-left-19 w-8 sm:w-10 h-8 sm:h-10 bg-[#1a6b41] border-3 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] text-white font-bold text-sm sm:text-base">
                                     1
                                 </div>
                                 <div
@@ -162,9 +190,9 @@
                             </div>
 
                             <!-- Step 2 -->
-                            <div class="flex items-center gap-5 relative">
+                            <div class="flex items-center gap-4 sm:gap-5 relative">
                                 <div
-                                    class="absolute -left-19 w-10 h-10 bg-[#fbbd23] border-3 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] text-black font-bold">
+                                    class="absolute -left-14 sm:-left-19 w-8 sm:w-10 h-8 sm:h-10 bg-[#fbbd23] border-3 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] text-black font-bold text-sm sm:text-base">
                                     2
                                 </div>
                                 <div
@@ -181,9 +209,9 @@
                             </div>
 
                             <!-- Step 3 -->
-                            <div class="flex items-center gap-5 relative">
+                            <div class="flex items-center gap-4 sm:gap-5 relative">
                                 <div
-                                    class="absolute -left-19 w-10 h-10 bg-[#ff8a8a] border-3 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] text-black font-bold">
+                                    class="absolute -left-14 sm:-left-19 w-8 sm:w-10 h-8 sm:h-10 bg-[#ff8a8a] border-3 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] text-black font-bold text-sm sm:text-base">
                                     3
                                 </div>
                                 <div
@@ -226,6 +254,16 @@
             &copy; 2026 CookLens. All rights reserved.
         </p>
     </footer>
+    <script>
+        document.getElementById('welcome-hamburger-btn')?.addEventListener('click', function () {
+            const menu = document.getElementById('welcome-mobile-menu');
+            const hamburger = document.getElementById('welcome-hamburger-icon');
+            const close = document.getElementById('welcome-close-icon');
+            menu.classList.toggle('hidden');
+            hamburger.classList.toggle('hidden');
+            close.classList.toggle('hidden');
+        });
+    </script>
     @stack('scripts')
 </body>
 

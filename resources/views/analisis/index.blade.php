@@ -8,12 +8,12 @@
     @if ($latest)
         {{-- Result Mode --}}
         <div class="flex flex-col gap-8">
-            <div class="flex items-center justify-between">
-                <h2 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
-                    <x-heroicon-o-check-circle class="w-8 h-8 text-green-500" /> Hasil Analisis
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2 sm:gap-3">
+                    <x-heroicon-o-check-circle class="w-7 sm:w-8 h-7 sm:h-8 text-green-500" /> Hasil Analisis
                 </h2>
                 <a href="{{ route('analisis') }}"
-                    class="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-xl font-bold border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all">
+                    class="self-stretch sm:self-auto text-center inline-flex items-center justify-center gap-2 bg-green-500 text-white px-5 sm:px-6 py-3 rounded-xl font-bold border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all text-sm sm:text-base">
                     <x-heroicon-o-arrow-up-tray class="w-5 h-5" /> Analisis Lagi
                 </a>
             </div>
@@ -22,7 +22,7 @@
                 <div class="flex flex-col lg:flex-row gap-6 mb-8">
                     <div class="w-full lg:w-64 shrink-0">
                         <img src="{{ $latest->image_path }}" alt="Bahan Makanan"
-                            class="w-full h-48 lg:h-40 object-cover rounded-xl border-3 border-black">
+                            class="w-full h-36 sm:h-48 lg:h-40 object-cover rounded-xl border-3 border-black">
                     </div>
                     <div class="grow">
                         <h4 class="font-bold text-lg mb-3 text-gray-800 flex items-center gap-2">
@@ -137,7 +137,7 @@
                     <div id="panel-upload" class="hidden" data-panel>
                         <label for="file-input"
                             data-dropzone
-                            class="flex flex-col items-center justify-center w-full min-h-65 border-2 border-dashed border-gray-400 rounded-xl bg-[#fcf9f8] cursor-pointer hover:border-green-500 hover:bg-green-50/30 transition-all duration-200 p-8 group">
+                            class="flex flex-col items-center justify-center w-full min-h-48 md:min-h-65 border-2 border-dashed border-gray-400 rounded-xl bg-[#fcf9f8] cursor-pointer hover:border-green-500 hover:bg-green-50/30 transition-all duration-200 p-8 group">
                             <div class="flex flex-col items-center gap-4 pointer-events-none">
                                 <div
                                     class="w-16 h-16 bg-green-100 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] group-hover:shadow-[5px_5px_0px_rgba(0,0,0,1)] group-hover:-translate-y-0.5 group-hover:-translate-x-0.5 transition-all">
@@ -153,7 +153,7 @@
 
                     <!-- Camera Panel -->
                     <div id="panel-camera" class="hidden relative" data-panel>
-                        <div class="relative w-full min-h-65 border-2 border-black rounded-xl bg-black overflow-hidden">
+                        <div class="relative w-full min-h-48 md:min-h-65 border-2 border-black rounded-xl bg-black overflow-hidden">
                             <video id="camera-feed" class="w-full h-full object-cover" autoplay playsinline muted></video>
                             <canvas id="camera-canvas" class="hidden"></canvas>
 
@@ -179,7 +179,7 @@
 
                     <!-- Preview -->
                     <div id="preview-container"
-                        class="hidden relative w-full min-h-65 rounded-xl overflow-hidden border-3 border-black bg-gray-900"
+                        class="hidden relative w-full min-h-48 md:min-h-65 rounded-xl overflow-hidden border-3 border-black bg-gray-900"
                         data-panel>
                         <img id="preview-image" class="w-full h-full absolute inset-0 object-contain" alt="Preview">
                         <button type="button" id="reset-preview"
@@ -212,22 +212,22 @@
                 <h3 class="text-xl font-bold mb-6 text-gray-900 flex items-center gap-2">
                     <x-heroicon-o-light-bulb class="w-6 h-6 text-amber-500" /> Tips Foto yang Baik
                 </h3>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="flex flex-col items-center text-center gap-3 p-4">
+                <div class="grid md:grid-cols-3 gap-4 md:gap-6">
+                    <div class="flex flex-col items-center text-center gap-3 p-3 md:p-4">
                         <div
                             class="w-12 h-12 bg-amber-400 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] shrink-0 text-lg font-bold">
                             1
                         </div>
                         <p class="text-gray-700 font-semibold">Pastikan pencahayaan cukup agar bahan makanan terlihat jelas.</p>
                     </div>
-                    <div class="flex flex-col items-center text-center gap-3 p-4">
+                    <div class="flex flex-col items-center text-center gap-3 p-3 md:p-4">
                         <div
                             class="w-12 h-12 bg-amber-400 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] shrink-0 text-lg font-bold">
                             2
                         </div>
                         <p class="text-gray-700 font-semibold">Letakkan bahan di permukaan yang bersih dan kontras.</p>
                     </div>
-                    <div class="flex flex-col items-center text-center gap-3 p-4">
+                    <div class="flex flex-col items-center text-center gap-3 p-3 md:p-4">
                         <div
                             class="w-12 h-12 bg-amber-400 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] shrink-0 text-lg font-bold">
                             3
