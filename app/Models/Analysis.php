@@ -13,12 +13,14 @@ class Analysis extends Model
         'image_path',
         'image_public_id',
         'detected_ingredients',
+        'is_favorite',
     ];
 
     protected function casts(): array
     {
         return [
             'detected_ingredients' => 'array',
+            'is_favorite' => 'boolean',
         ];
     }
 

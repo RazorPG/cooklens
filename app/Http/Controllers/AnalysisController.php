@@ -24,11 +24,22 @@ class AnalysisController extends Controller
 
     public function history(Request $request): View
     {
+        $search = $request->input('search');
+        $favorites = $request->boolean('favorites');
+
         $analyses = Analysis::where('user_id', auth()->id())
+            ->when($favorites, fn ($q) => $q->where('is_favorite', true))
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($sub) use ($search) {
+                    $sub->where('detected_ingredients', 'like', "%{$search}%")
+                        ->orWhereHas('recommendations', fn ($r) => $r->where('recipe_name', 'like', "%{$search}%"));
+                });
+            })
+            ->with('recommendations')
             ->latest()
             ->paginate(5);
 
-        return view('riwayat', compact('analyses'));
+        return view('riwayat', compact('analyses', 'search', 'favorites'));
     }
 
     public function show(Analysis $analysis): View
@@ -53,6 +64,19 @@ class AnalysisController extends Controller
         $analysis->delete();
 
         return to_route('riwayat')->with('status', 'Analisis berhasil dihapus!');
+    }
+
+    public function toggleFavorite(Analysis $analysis): RedirectResponse
+    {
+        if ($analysis->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $analysis->update(['is_favorite' => ! $analysis->is_favorite]);
+
+        return back()->with('status', $analysis->is_favorite
+            ? 'Analisis ditandai sebagai favorit!'
+            : 'Analisis dihapus dari favorit!');
     }
 
     public function store(StoreAnalysisRequest $request): RedirectResponse

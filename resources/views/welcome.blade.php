@@ -41,16 +41,16 @@
 
                 <!-- Mobile Hamburger -->
                 <button id="welcome-hamburger-btn" class="md:hidden flex items-center p-2 -mr-2" aria-label="Menu">
-                    <!-- Simplified hamburger (three bars) -->
-                    <span id="welcome-hamburger-icon" class="w-7 h-7 flex flex-col justify-between items-center">
-                        <span class="block w-7 h-1 bg-current"></span>
-                        <span class="block w-7 h-1 bg-current"></span>
-                        <span class="block w-7 h-1 bg-current"></span>
-                    </span>
-
-                    <!-- Simplified close (times) -->
-                    <span id="welcome-close-icon"
-                        class="w-7 h-7 hidden flex items-center justify-center text-4xl leading-none">&times;</span>
+                    <svg id="welcome-hamburger-icon" class="w-7 h-7" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="welcome-close-icon" class="w-7 h-7 hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
                 </button>
             </div>
         </div>

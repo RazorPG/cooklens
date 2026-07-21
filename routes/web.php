@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/riwayat', [AnalysisController::class, 'history'])->name('riwayat');
     Route::get('/riwayat/{analysis}', [AnalysisController::class, 'show'])->name('riwayat.show');
     Route::delete('/riwayat/{analysis}', [AnalysisController::class, 'destroy'])->name('riwayat.destroy');
+    Route::patch('/riwayat/{analysis}/favorite', [AnalysisController::class, 'toggleFavorite'])->name('riwayat.favorite');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

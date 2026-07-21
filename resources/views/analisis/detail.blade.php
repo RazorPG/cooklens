@@ -9,10 +9,24 @@
                 <h2 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
                     <x-heroicon-o-document-text class="w-8 h-8" /> Detail Analisis
                 </h2>
-                <a href="{{ route('riwayat') }}"
-                    class="inline-flex items-center gap-1 text-sm font-bold text-gray-600 hover:text-gray-900 transition-all">
-                    <x-heroicon-o-arrow-left class="w-4 h-4" /> Kembali ke Riwayat
-                </a>
+                <div class="flex items-center gap-2">
+                    <form action="{{ route('riwayat.favorite', $analysis) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit"
+                            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md font-bold text-sm border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all {{ $analysis->is_favorite ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-white text-gray-600 hover:bg-red-50 hover:text-red-500' }}">
+                            @if ($analysis->is_favorite)
+                                <x-heroicon-s-heart class="w-5 h-5" /> Favorit
+                            @else
+                                <x-heroicon-o-heart class="w-5 h-5" /> Tandai Favorit
+                            @endif
+                        </button>
+                    </form>
+                    <a href="{{ route('riwayat') }}"
+                        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md font-bold text-sm border-2 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] bg-white text-gray-700 hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all">
+                        <x-heroicon-o-arrow-left class="w-4 h-4" /> Kembali
+                    </a>
+                </div>
             </div>
             <p class="text-gray-500 text-sm">
                 Dianalisis pada {{ $analysis->created_at->format('d M Y, H:i') }}
@@ -47,7 +61,7 @@
             <div class="flex gap-3 overflow-x-auto flex-nowrap pb-2">
                 @foreach ($analysis->recommendations as $i => $rec)
                     <button type="button" data-tab="{{ $i }}"
-                        class="tab-btn px-6 py-3 rounded-xl font-bold border-3 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all bg-[#fcf9f8] text-gray-700 hover:bg-green-50"
+                        class="tab-btn cursor-pointer px-6 py-3 rounded-xl font-bold border-3 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all {{ $i === 0 ? 'bg-green-500 text-white shadow-[5px_5px_0px_rgba(0,0,0,1)]' : 'bg-[#fcf9f8] text-gray-700' }}"
                         data-active-class="bg-green-500 text-white shadow-[5px_5px_0px_rgba(0,0,0,1)]">
                         <span class="flex items-center gap-2">
                             <x-heroicon-o-star class="w-5 h-5" />

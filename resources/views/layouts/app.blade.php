@@ -31,7 +31,7 @@
                 </div>
 
                 <!-- Desktop Navigation -->
-                <div class="hidden lg:flex items-center gap-6 text-sm md:text-base">
+                <div class="hidden md:flex items-center gap-6 text-sm md:text-base">
                     <a href="{{ route('dashboard') }}"
                         class="font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('dashboard') ? 'text-green-500' : '' }}">Dashboard</a>
                     <a href="{{ route('analisis') }}"
@@ -51,17 +51,19 @@
                 <!-- Mobile Hamburger -->
                 <button id="hamburger-btn" class="lg:hidden flex items-center p-2 -mr-2" aria-label="Menu">
                     <svg id="hamburger-icon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                     <svg id="close-icon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden border-t-3 border-gray-400 bg-[#fcf9f8] px-4 py-6 space-y-4">
+        <div id="mobile-menu" class="hidden md:hidden border-t-3 border-gray-400 bg-[#fcf9f8] px-4 py-6 space-y-4">
             <a href="{{ route('dashboard') }}"
                 class="block font-bold text-gray-700 hover:text-green-500 {{ request()->routeIs('dashboard') ? 'text-green-500' : '' }}">Dashboard</a>
             <a href="{{ route('analisis') }}"
