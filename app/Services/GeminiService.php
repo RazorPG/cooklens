@@ -22,7 +22,7 @@ class GeminiService
                 responseMimeType: ResponseMimeType::APPLICATION_JSON,
             ))
             ->generateContent([
-                'Analisis gambar makanan ini. Identifikasi bahan-bahan yang terlihat dan berikan rekomendasi resep (minimal 1, maksimal 3) yang bisa dibuat dari bahan-bahan tersebut. Gunakan bahasa Indonesia.
+                'Analisis gambar makanan ini. Identifikasi bahan-bahan yang terlihat dan berikan rekomendasi resep (minimal 1, maksimal 3) yang bisa dibuat dari bahan-bahan tersebut. Gunakan bahasa Indonesia. Jika gambar tidak mengandung bahan makanan sama sekali (misalnya gambar benda mati, orang, atau pemandangan), kembalikan "detected_ingredients" dengan array kosong [] dan "recommendations" dengan array kosong [].
 
 Kembalikan JSON dengan format:
 {

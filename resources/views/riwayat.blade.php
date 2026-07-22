@@ -15,20 +15,28 @@
             <!-- Filter Bar -->
             <form method="GET" action="{{ route('riwayat') }}" class="flex flex-col sm:flex-row gap-3 mt-6">
                 <div class="relative flex-1">
-                    <input type="text" name="search" value="{{ $search }}"
-                        placeholder="Cari nama resep atau bahan..."
+                    <input type="text" name="search" value="{{ $search }}" placeholder="Cari nama resep atau bahan..."
                         class="w-full pl-10 pr-4 py-3 rounded-xl border-3 border-black font-bold shadow-[3px_3px_0px_rgba(0,0,0,1)] bg-[#fcf9f8] focus:bg-white transition-all outline-none placeholder:text-gray-400">
                     <div class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
                         <x-heroicon-o-magnifying-glass class="w-5 h-5 text-gray-500" />
                     </div>
                 </div>
                 <div class="flex gap-2 shrink-0">
-                    <button type="submit" name="favorites" value="1"
-                        class="px-5 py-3 rounded-xl font-bold border-3 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-0.5 hover:-translate-x-0.5 {{ $favorites ? 'bg-red-500 text-white shadow-[3px_3px_0px_rgba(0,0,0,1)]' : 'bg-white text-gray-700 hover:bg-red-50' }}">
-                        <span class="flex items-center gap-2">
-                            <x-heroicon-s-heart class="w-5 h-5" /> Favorit
-                        </span>
-                    </button>
+                    @if ($favorites)
+                        <a href="{{ request()->fullUrlWithQuery(['favorites' => null, 'page' => null]) }}"
+                            class="px-5 py-3 rounded-xl font-bold border-3 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] bg-red-500 text-white transition-all hover:-translate-y-0.5 hover:-translate-x-0.5">
+                            <span class="flex items-center gap-2">
+                                <x-heroicon-s-heart class="w-5 h-5" /> Favorit
+                            </span>
+                        </a>
+                    @else
+                        <a href="{{ request()->fullUrlWithQuery(['favorites' => 1, 'page' => null]) }}"
+                            class="px-5 py-3 rounded-xl font-bold border-3 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] bg-white text-gray-700 hover:bg-red-50 transition-all hover:-translate-y-0.5 hover:-translate-x-0.5">
+                            <span class="flex items-center gap-2">
+                                <x-heroicon-s-heart class="w-5 h-5" /> Favorit
+                            </span>
+                        </a>
+                    @endif
                     @if ($search || $favorites)
                         <a href="{{ route('riwayat') }}"
                             class="px-5 py-3 rounded-xl font-bold border-3 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all inline-flex items-center">
@@ -102,7 +110,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="flex gap-2 w-full md:w-auto mt-2 md:mt-0">
+                        <div class="flex gap-2 justify-center items-center w-full md:w-auto mt-2 md:mt-0">
                             <form action="{{ route('riwayat.favorite', $analysis) }}" method="POST" class="inline">
                                 @csrf
                                 @method('PATCH')

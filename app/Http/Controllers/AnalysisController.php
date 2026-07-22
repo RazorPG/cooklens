@@ -28,11 +28,11 @@ class AnalysisController extends Controller
         $favorites = $request->boolean('favorites');
 
         $analyses = Analysis::where('user_id', auth()->id())
-            ->when($favorites, fn ($q) => $q->where('is_favorite', true))
+            ->when($favorites, fn($q) => $q->where('is_favorite', true))
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($sub) use ($search) {
                     $sub->where('detected_ingredients', 'like', "%{$search}%")
-                        ->orWhereHas('recommendations', fn ($r) => $r->where('recipe_name', 'like', "%{$search}%"));
+                        ->orWhereHas('recommendations', fn($r) => $r->where('recipe_name', 'like', "%{$search}%"));
                 });
             })
             ->with('recommendations')
@@ -72,7 +72,7 @@ class AnalysisController extends Controller
             abort(403);
         }
 
-        $analysis->update(['is_favorite' => ! $analysis->is_favorite]);
+        $analysis->update(['is_favorite' => !$analysis->is_favorite]);
 
         return back()->with('status', $analysis->is_favorite
             ? 'Analisis ditandai sebagai favorit!'
@@ -81,17 +81,29 @@ class AnalysisController extends Controller
 
     public function store(StoreAnalysisRequest $request): RedirectResponse
     {
+        set_time_limit(120);
+
         try {
             $localPath = $request->file('image')->getRealPath();
 
-            $result = app(GeminiService::class)->analyzeImage($localPath);
-
+            // Upload ke Cloudinary terlebih dahulu
             $uploaded = Cloudinary::uploadApi()->upload(
                 $localPath,
                 [
                     'folder' => 'cooklens/analysis/'.auth()->id(),
                 ]
             );
+
+            // Analisis gambar dengan Gemini
+            $result = app(GeminiService::class)->analyzeImage($localPath);
+
+            // Jika AI tidak mendeteksi bahan makanan
+            if (empty($result['detected_ingredients'])) {
+                // Hapus gambar yang sudah terlanjur di-upload ke Cloudinary
+                Cloudinary::uploadApi()->destroy($uploaded['public_id']);
+                
+                return back()->with('no_ingredients', true);
+            }
 
             $analysis = Analysis::create([
                 'user_id' => auth()->id(),
@@ -116,8 +128,22 @@ class AnalysisController extends Controller
             return to_route('analisis')
                 ->with('status', 'Gambar berhasil dianalisis!')
                 ->with('latest_analysis', $analysis);
-        } catch (\Exception $e) {
-            return back()->with('error', 'Gagal menganalisis gambar: '.$e->getMessage())->withInput();
+        } catch (\Throwable $e) {
+            $msg = $e->getMessage();
+            $error = 'Gagal menganalisis gambar. Silakan coba lagi.';
+
+            if (str_contains(strtolower($msg), 'limit') || str_contains(strtolower($msg), '429') || str_contains(strtolower($msg), 'quota')) {
+                $error = 'Server AI sedang sibuk atau batas penggunaan harian telah tercapai. Mohon coba beberapa saat lagi.';
+            } elseif (str_contains(strtolower($msg), 'timeout') || str_contains(strtolower($msg), '30 detik') || str_contains(strtolower($msg), 'curl error 28') || str_contains(strtolower($msg), 'execution time')) {
+                $error = 'Proses analisis terlalu lama. Pastikan koneksi internet Anda stabil dan silakan coba lagi.';
+            } else {
+                // Gunakan Helper str()->limit jika perlu menampilkan sisa exception
+                $error = 'Gagal menganalisis gambar: ' . str($msg)->limit(80);
+            }
+
+            \Illuminate\Support\Facades\Log::error('Analysis failed: ' . $msg);
+
+            return back()->with('error', $error)->withInput();
         }
     }
 }

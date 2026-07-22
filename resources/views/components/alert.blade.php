@@ -20,7 +20,7 @@
         ...($messages ? (array) $messages : []),
     ];
     $positional = $floating
-        ? 'fixed bottom-4 right-4 z-50'
+        ? 'fixed bottom-4 left-4 right-4 md:left-auto md:w-[400px] z-50'
         : 'relative';
 @endphp
 
@@ -36,7 +36,7 @@
             </div>
             <div class="flex-1 space-y-1">
                 @foreach ($allMessages as $msg)
-                    <p class="text-lg font-bold">{{ $msg }}</p>
+                    <p class="text-base md:text-lg font-bold break-words">{{ $msg }}</p>
                 @endforeach
             </div>
             @if ($dismissible || $floating)

@@ -3,9 +3,29 @@
 @section('title', 'Analisis')
 
 @section('content')
-    @php $latest = session('latest_analysis'); @endphp
+    @php 
+        $latest = session('latest_analysis'); 
+        $noIngredients = session('no_ingredients');
+    @endphp
 
-    @if ($latest)
+    @if ($noIngredients)
+        {{-- UI Khusus: Tidak ada bahan terdeteksi --}}
+        <div class="flex flex-col gap-8">
+             <div class="bg-white rounded-xl p-8 border-3 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] text-center">
+                  <div class="w-24 h-24 bg-red-100 border-3 border-black rounded-full flex items-center justify-center mx-auto mb-6 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
+                       <x-heroicon-o-face-frown class="w-12 h-12 text-red-600" />
+                  </div>
+                  <h2 class="text-3xl font-bold mb-4 text-gray-900">Oops! Makanan Tidak Ditemukan</h2>
+                  <p class="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
+                       AI kami tidak berhasil mendeteksi bahan makanan apapun pada foto yang kamu unggah (mungkin foto tersebut bukan makanan). Coba unggah ulang dengan foto bahan makanan yang lebih jelas.
+                  </p>
+                  <a href="{{ route('analisis') }}"
+                      class="inline-flex items-center gap-2 bg-black text-white px-8 py-3 rounded-xl font-bold border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all">
+                      <x-heroicon-o-arrow-path class="w-6 h-6" /> Coba Foto Lain
+                  </a>
+             </div>
+        </div>
+    @elseif ($latest)
         {{-- Result Mode --}}
         <div class="flex flex-col gap-8">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -119,13 +139,13 @@
                     <div class="flex gap-3 mb-6">
                         <label for="tab_upload"
                             class="flex-1 text-center px-6 py-3 rounded-xl font-bold border-3 transition-all shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer peer-checked/tab_upload:bg-green-500 peer-checked/tab_upload:text-white peer-checked/tab_upload:border-black bg-[#fcf9f8] text-gray-600 border-gray-300 hover:bg-green-50">
-                            <span class="flex items-center justify-center gap-2">
+                            <span class="flex items-center justify-center gap-2 md:text-xl text-sm">
                                 <x-heroicon-o-arrow-up-tray class="w-5 h-5" /> Upload Foto
                             </span>
                         </label>
                         <label for="tab_camera"
                             class="flex-1 text-center px-6 py-3 rounded-xl font-bold border-3 transition-all shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer peer-checked/tab_camera:bg-green-500 peer-checked/tab_camera:text-white peer-checked/tab_camera:border-black bg-[#fcf9f8] text-gray-600 border-gray-300 hover:bg-green-50">
-                            <span class="flex items-center justify-center gap-2">
+                            <span class="flex items-center justify-center gap-2 md:text-xl text-sm">
                                 <x-heroicon-o-camera class="w-5 h-5" /> Kamera
                             </span>
                         </label>
@@ -137,7 +157,7 @@
                     <div id="panel-upload" class="hidden" data-panel>
                         <label for="file-input"
                             data-dropzone
-                            class="flex flex-col items-center justify-center w-full min-h-48 md:min-h-65 border-2 border-dashed border-gray-400 rounded-xl bg-[#fcf9f8] cursor-pointer hover:border-green-500 hover:bg-green-50/30 transition-all duration-200 p-8 group">
+                            class="flex flex-col items-center justify-center w-full min-h-[250px] md:min-h-[300px] border-2 border-dashed border-gray-400 rounded-xl bg-[#fcf9f8] cursor-pointer hover:border-green-500 hover:bg-green-50/30 transition-all duration-200 p-8 group">
                             <div class="flex flex-col items-center gap-4 pointer-events-none">
                                 <div
                                     class="w-16 h-16 bg-green-100 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] group-hover:shadow-[5px_5px_0px_rgba(0,0,0,1)] group-hover:-translate-y-0.5 group-hover:-translate-x-0.5 transition-all">
@@ -153,18 +173,18 @@
 
                     <!-- Camera Panel -->
                     <div id="panel-camera" class="hidden relative" data-panel>
-                        <div class="relative w-full min-h-48 md:min-h-65 border-2 border-black rounded-xl bg-black overflow-hidden">
+                        <div class="relative w-full min-h-[250px] md:min-h-[300px] border-2 border-black rounded-xl bg-black overflow-hidden">
                             <video id="camera-feed" class="w-full h-full object-cover" autoplay playsinline muted></video>
                             <canvas id="camera-canvas" class="hidden"></canvas>
 
-                            <div id="camera-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 p-4 text-center">
-                                <div class="w-16 h-16 bg-blue-100 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)]">
+                            <div id="camera-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 p-6 text-center gap-2">
+                                <div class="w-16 h-16 shrink-0 bg-blue-100 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)]">
                                     <x-heroicon-o-camera class="w-8 h-8 text-blue-600" />
                                 </div>
-                                <p class="text-lg font-bold text-gray-800 mt-4">Akses kamera diperlukan</p>
-                                <p class="text-sm text-gray-500 mt-1">Izinkan akses kamera untuk memotret bahan makanan</p>
+                                <h3 class="text-lg font-bold text-gray-800 mt-2">Akses kamera diperlukan</h3>
+                                <p class="text-sm text-gray-500 mb-2">Izinkan akses kamera untuk memotret bahan makanan</p>
                                 <button type="button" id="start-camera-btn"
-                                    class="mt-4 px-6 py-2.5 bg-blue-500 text-white font-bold border-2 border-black rounded-lg shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all">
+                                    class="px-6 py-2.5 shrink-0 bg-blue-500 text-white font-bold border-2 border-black rounded-lg shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all">
                                     Nyalakan Kamera
                                 </button>
                                 <p id="camera-error" class="text-sm text-red-600 font-semibold mt-3 hidden"></p>
@@ -179,7 +199,7 @@
 
                     <!-- Preview -->
                     <div id="preview-container"
-                        class="hidden relative w-full min-h-48 md:min-h-65 rounded-xl overflow-hidden border-3 border-black bg-gray-900"
+                        class="hidden relative w-full min-h-[250px] md:min-h-[300px] rounded-xl overflow-hidden border-3 border-black bg-gray-900"
                         data-panel>
                         <img id="preview-image" class="w-full h-full absolute inset-0 object-contain" alt="Preview">
                         <button type="button" id="reset-preview"

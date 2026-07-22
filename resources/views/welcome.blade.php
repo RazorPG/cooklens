@@ -80,7 +80,7 @@
                         <x-hugeicons-ai-brain-03 /> AI Kitchen Assistant
                     </div>
 
-                    <h1 class="text-2xl md:text-3xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                    <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                         Ubah <span class="text-green-500">Bahan Makanan</span> Menjadi Masakan Lezat
                     </h1>
 

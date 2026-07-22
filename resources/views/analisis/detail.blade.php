@@ -64,8 +64,10 @@
                         class="tab-btn cursor-pointer px-6 py-3 rounded-xl font-bold border-3 border-black shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all {{ $i === 0 ? 'bg-green-500 text-white shadow-[5px_5px_0px_rgba(0,0,0,1)]' : 'bg-[#fcf9f8] text-gray-700' }}"
                         data-active-class="bg-green-500 text-white shadow-[5px_5px_0px_rgba(0,0,0,1)]">
                         <span class="flex items-center gap-2">
-                            <x-heroicon-o-star class="w-5 h-5" />
-                            {{ $rec->recipe_name }}
+                            <x-heroicon-o-star class="w-5 h-5 shrink-0" />
+                            <span class="truncate max-w-[150px] sm:max-w-[300px]" title="{{ $rec->recipe_name }}">
+                                {{ $rec->recipe_name }}
+                            </span>
                         </span>
                     </button>
                 @endforeach
