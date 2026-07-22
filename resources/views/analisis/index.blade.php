@@ -136,17 +136,19 @@
                     <input type="radio" name="upload_tab" id="tab_upload" class="hidden peer/tab_upload" checked data-tab-radio>
                     <input type="radio" name="upload_tab" id="tab_camera" class="hidden peer/tab_camera" data-tab-radio>
 
-                    <div class="flex gap-3 mb-6">
+                    <div class="flex gap-2 sm:gap-3 mb-6">
                         <label for="tab_upload"
-                            class="flex-1 text-center px-6 py-3 rounded-xl font-bold border-3 transition-all shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer peer-checked/tab_upload:bg-green-500 peer-checked/tab_upload:text-white peer-checked/tab_upload:border-black bg-[#fcf9f8] text-gray-600 border-gray-300 hover:bg-green-50">
-                            <span class="flex items-center justify-center gap-2 md:text-xl text-sm">
-                                <x-heroicon-o-arrow-up-tray class="w-5 h-5" /> Upload Foto
+                            class="flex-1 text-center px-2 sm:px-6 py-3 rounded-xl font-bold border-3 transition-all shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer peer-checked/tab_upload:bg-green-500 peer-checked/tab_upload:text-white peer-checked/tab_upload:border-black bg-[#fcf9f8] text-gray-600 border-gray-300 hover:bg-green-50 min-w-0">
+                            <span class="flex items-center justify-center gap-1 sm:gap-2 md:text-xl text-sm min-w-0">
+                                <x-heroicon-o-arrow-up-tray class="w-5 h-5 shrink-0" />
+                                <span class="truncate">Upload Foto</span>
                             </span>
                         </label>
                         <label for="tab_camera"
-                            class="flex-1 text-center px-6 py-3 rounded-xl font-bold border-3 transition-all shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer peer-checked/tab_camera:bg-green-500 peer-checked/tab_camera:text-white peer-checked/tab_camera:border-black bg-[#fcf9f8] text-gray-600 border-gray-300 hover:bg-green-50">
-                            <span class="flex items-center justify-center gap-2 md:text-xl text-sm">
-                                <x-heroicon-o-camera class="w-5 h-5" /> Kamera
+                            class="flex-1 text-center px-2 sm:px-6 py-3 rounded-xl font-bold border-3 transition-all shadow-[3px_3px_0px_rgba(0,0,0,1)] cursor-pointer peer-checked/tab_camera:bg-green-500 peer-checked/tab_camera:text-white peer-checked/tab_camera:border-black bg-[#fcf9f8] text-gray-600 border-gray-300 hover:bg-green-50 min-w-0">
+                            <span class="flex items-center justify-center gap-1 sm:gap-2 md:text-xl text-sm min-w-0">
+                                <x-heroicon-o-camera class="w-5 h-5 shrink-0" />
+                                <span class="truncate">Kamera</span>
                             </span>
                         </label>
                     </div>
@@ -177,17 +179,26 @@
                             <video id="camera-feed" class="w-full h-full object-cover" autoplay playsinline muted></video>
                             <canvas id="camera-canvas" class="hidden"></canvas>
 
-                            <div id="camera-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 p-6 text-center gap-2">
-                                <div class="w-16 h-16 shrink-0 bg-blue-100 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)]">
-                                    <x-heroicon-o-camera class="w-8 h-8 text-blue-600" />
+                            <!-- Tombol Putar Kamera -->
+                            <button type="button" id="flip-camera-btn"
+                                class="absolute top-3 right-3 w-10 h-10 bg-white border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:bg-gray-200 transition-all hidden z-10"
+                                title="Putar Kamera">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </button>
+
+                            <div id="camera-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 p-4 md:p-6 text-center gap-1 md:gap-2">
+                                <div class="w-12 h-12 md:w-16 md:h-16 shrink-0 bg-blue-100 border-2 border-black rounded-full flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)]">
+                                    <x-heroicon-o-camera class="w-6 h-6 md:w-8 md:h-8 text-blue-600" />
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-800 mt-2">Akses kamera diperlukan</h3>
-                                <p class="text-sm text-gray-500 mb-2">Izinkan akses kamera untuk memotret bahan makanan</p>
+                                <h3 class="text-base md:text-lg font-bold text-gray-800 mt-1 md:mt-2">Akses kamera diperlukan</h3>
+                                <p class="text-xs md:text-sm text-gray-500 mb-1 md:mb-2">Izinkan akses kamera untuk memotret bahan makanan</p>
                                 <button type="button" id="start-camera-btn"
-                                    class="px-6 py-2.5 shrink-0 bg-blue-500 text-white font-bold border-2 border-black rounded-lg shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all">
+                                    class="px-4 py-2 md:px-6 md:py-2.5 text-sm md:text-base shrink-0 bg-blue-500 text-white font-bold border-2 border-black rounded-lg shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all">
                                     Nyalakan Kamera
                                 </button>
-                                <p id="camera-error" class="text-sm text-red-600 font-semibold mt-3 hidden"></p>
+                                <p id="camera-error" class="text-xs md:text-sm text-red-600 font-semibold mt-2 md:mt-3 hidden"></p>
                             </div>
 
                             <button type="button" id="capture-btn"
@@ -298,9 +309,11 @@
             const cameraPlaceholder = document.getElementById('camera-placeholder');
             const startCameraBtn = document.getElementById('start-camera-btn');
             const captureBtn = document.getElementById('capture-btn');
+            const flipCameraBtn = document.getElementById('flip-camera-btn');
             const cameraError = document.getElementById('camera-error');
 
             let cameraStream = null;
+            let currentFacingMode = 'environment';
 
             function showPanel(id) {
                 panels.forEach(p => p.classList.add('hidden'));
@@ -312,18 +325,27 @@
                 try {
                     cameraError.classList.add('hidden');
 
+                    if (cameraStream) {
+                        cameraStream.getTracks().forEach(t => t.stop());
+                    }
+
                     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
                         throw new DOMException('', 'NotSupportedError');
                     }
 
                     cameraStream = await navigator.mediaDevices.getUserMedia({
-                        video: { width: { ideal: 1280 }, height: { ideal: 720 } },
+                        video: { 
+                            width: { ideal: 1280 }, 
+                            height: { ideal: 720 },
+                            facingMode: currentFacingMode
+                        },
                         audio: false,
                     });
                     cameraFeed.srcObject = cameraStream;
                     await cameraFeed.play();
                     cameraPlaceholder.classList.add('hidden');
                     captureBtn.classList.remove('hidden');
+                    if (flipCameraBtn) flipCameraBtn.classList.remove('hidden');
                 } catch (err) {
                     let msg = `Tidak dapat mengakses kamera (${err.name}).`;
                     if (err.name === 'NotAllowedError') {
@@ -349,6 +371,7 @@
                 }
                 cameraFeed.srcObject = null;
                 captureBtn.classList.add('hidden');
+                if (flipCameraBtn) flipCameraBtn.classList.add('hidden');
                 cameraPlaceholder.classList.remove('hidden');
                 cameraError.classList.add('hidden');
             }
@@ -433,6 +456,13 @@
 
             startCameraBtn.addEventListener('click', startCamera);
             captureBtn.addEventListener('click', capturePhoto);
+            
+            if (flipCameraBtn) {
+                flipCameraBtn.addEventListener('click', () => {
+                    currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+                    startCamera();
+                });
+            }
 
             fileInput.addEventListener('change', function () {
                 const file = this.files[0];
