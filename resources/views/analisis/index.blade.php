@@ -401,17 +401,6 @@
                 }, 'image/jpeg', 0.92);
             }
 
-            tabRadios.forEach(radio => {
-                radio.addEventListener('change', function () {
-                    if (!this.checked) return;
-
-                    if (this.id === 'tab_camera') {
-                        captureBtn.classList.add('hidden');
-                        showPanel('panel-camera');
-                        cameraPlaceholder.classList.remove('hidden');
-                        cameraError.classList.add('hidden');
-                    } else {
-                        if (cameraStream) stopCamera();
             const dropzone = document.querySelector('[data-dropzone]');
 
             if (dropzone) {
@@ -449,7 +438,19 @@
                 });
             }
 
-            showPanel('panel-upload');
+            tabRadios.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (!this.checked) return;
+
+                    if (this.id === 'tab_camera') {
+                        captureBtn.classList.add('hidden');
+                        showPanel('panel-camera');
+                        cameraPlaceholder.classList.remove('hidden');
+                        cameraError.classList.add('hidden');
+                    } else {
+                        if (cameraStream) stopCamera();
+
+                        showPanel('panel-upload');
                     }
                 });
             });

@@ -24,7 +24,7 @@
         <div class="max-w-7xl mx-auto py-2 md:py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-2">
-                    <img src="{{ asset('img/cooklens-app.png') }}" alt="CookLens" class="h-15">
+                    <img src="{{ asset('img/cooklens-app.png') }}" alt="CookLens" class="md:h-15 h-10">
                 </div>
 
                 <!-- Desktop Nav -->
@@ -40,7 +40,8 @@
                 </div>
 
                 <!-- Mobile Hamburger -->
-                <button id="welcome-hamburger-btn" class="md:hidden flex items-center p-2 -mr-2" aria-label="Menu">
+                <button id="welcome-hamburger-btn" class="md:hidden flex items-center p-2 -mr-2 cursor-pointer"
+                    aria-label="Menu">
                     <svg id="welcome-hamburger-icon" class="w-7 h-7" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"

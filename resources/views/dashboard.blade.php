@@ -20,12 +20,13 @@
                 <h3 class="text-xl sm:text-2xl font-bold text-black mb-2 flex items-center gap-3">
                     <span class="text-2xl sm:text-3xl">📸</span> Analisis Bahan Makanan Baru
                 </h3>
-                <p class="text-green-950 font-semibold text-base sm:text-lg">Punya sisa bahan di kulkas? Unggah fotonya dan biar AI kami
+                <p class="text-green-950 font-semibold text-base sm:text-lg">Punya sisa bahan di kulkas? Unggah fotonya dan
+                    biar AI kami
                     menemukan resep lezat untukmu!</p>
             </div>
             <a href="{{ route('analisis') }}"
-                class="w-full sm:w-auto text-center shrink-0 bg-white text-black font-bold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-xl border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-2">
-                <x-heroicon-o-camera class="w-7" /> Mulai Analisis
+                class="w-full sm:w-auto text-center shrink-0 bg-white text-black font-bold text-sm sm:text-lg px-5 sm:px-8 py-2.5 sm:py-4 rounded-xl border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-2">
+                <x-heroicon-o-camera class="w-6 sm:w-7" /> Mulai Analisis
             </a>
         </div>
 
@@ -35,7 +36,7 @@
                 Hasil Analisis Terakhir
             </h2>
 
-            <div class="flex flex-col gap-4 mb-8">
+            <div class="flex flex-col gap-4">
                 @forelse ($analyses as $analysis)
                     @php $firstRec = $analysis->recommendations->first(); @endphp
                     <div
@@ -46,7 +47,8 @@
                         </div>
                         <div class="grow w-full md:w-auto">
                             <h3 class="font-bold text-xl text-gray-900 mb-1">
-                                {{ $firstRec?->recipe_name ?? 'Analisis #' . $analysis->id }}</h3>
+                                {{ $firstRec?->recipe_name ?? 'Analisis #' . $analysis->id }}
+                            </h3>
                             <div class="flex flex-wrap items-center gap-3">
                                 @if ($firstRec)
                                     <span
@@ -71,21 +73,25 @@
                         </div>
                     </div>
                 @empty
-                    <div class="text-center py-12">
+                    <div class="text-center">
                         <div
-                            class="w-16 h-16 bg-gray-100 border-2 border-black rounded-full flex items-center justify-center mx-auto mb-4 shadow-[3px_3px_0px_rgba(0,0,0,1)]">
-                            <x-heroicon-o-document-magnifying-glass class="w-8 h-8 text-gray-400" />
+                            class="w-20 h-20 bg-gray-100 border-2 border-black rounded-full flex items-center justify-center mx-auto mb-6 shadow-[3px_3px_0px_rgba(0,0,0,1)]">
+                            <x-heroicon-o-document-magnifying-glass class="w-10 h-10 text-gray-400" />
                         </div>
-                        <p class="text-gray-500 font-semibold text-lg">Belum ada hasil analisis</p>
-                        <p class="text-gray-400 text-sm mt-1">Mulai dengan mengunggah foto bahan makanan!</p>
+                        <h3 class="text-xl font-bold text-gray-700 mb-2">Belum Ada Analisis</h3>
+                        <p class="text-gray-500 mb-6">Kamu belum pernah melakukan analisis bahan makanan.</p>
+                        <a href="{{ route('analisis') }}"
+                            class="inline-flex items-center gap-2 bg-green-500 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl font-bold border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all">
+                            Analisis Sekarang
+                        </a>
                     </div>
                 @endforelse
             </div>
 
             @if ($analyses->isNotEmpty())
-                <div class="text-center">
+                <div class="text-center mt-6">
                     <a href="{{ route('riwayat') }}"
-                        class="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-8 py-3 rounded-lg font-bold shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all border-3 border-black">
+                        class="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-bold shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all border-3 border-black">
                         Lihat Semua Riwayat <span class="text-xl">→</span>
                     </a>
                 </div>

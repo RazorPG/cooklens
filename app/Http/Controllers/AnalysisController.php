@@ -8,6 +8,7 @@ use App\Services\GeminiService;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AnalysisController extends Controller
@@ -28,11 +29,11 @@ class AnalysisController extends Controller
         $favorites = $request->boolean('favorites');
 
         $analyses = Analysis::where('user_id', auth()->id())
-            ->when($favorites, fn($q) => $q->where('is_favorite', true))
+            ->when($favorites, fn ($q) => $q->where('is_favorite', true))
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($sub) use ($search) {
                     $sub->where('detected_ingredients', 'like', "%{$search}%")
-                        ->orWhereHas('recommendations', fn($r) => $r->where('recipe_name', 'like', "%{$search}%"));
+                        ->orWhereHas('recommendations', fn ($r) => $r->where('recipe_name', 'like', "%{$search}%"));
                 });
             })
             ->with('recommendations')
@@ -72,7 +73,7 @@ class AnalysisController extends Controller
             abort(403);
         }
 
-        $analysis->update(['is_favorite' => !$analysis->is_favorite]);
+        $analysis->update(['is_favorite' => ! $analysis->is_favorite]);
 
         return back()->with('status', $analysis->is_favorite
             ? 'Analisis ditandai sebagai favorit!'
@@ -101,7 +102,7 @@ class AnalysisController extends Controller
             if (empty($result['detected_ingredients'])) {
                 // Hapus gambar yang sudah terlanjur di-upload ke Cloudinary
                 Cloudinary::uploadApi()->destroy($uploaded['public_id']);
-                
+
                 return back()->with('no_ingredients', true);
             }
 
@@ -138,10 +139,10 @@ class AnalysisController extends Controller
                 $error = 'Proses analisis terlalu lama. Pastikan koneksi internet Anda stabil dan silakan coba lagi.';
             } else {
                 // Gunakan Helper str()->limit jika perlu menampilkan sisa exception
-                $error = 'Gagal menganalisis gambar: ' . str($msg)->limit(80);
+                $error = 'Gagal menganalisis gambar: '.str($msg)->limit(80);
             }
 
-            \Illuminate\Support\Facades\Log::error('Analysis failed: ' . $msg);
+            Log::error('Analysis failed: '.$msg);
 
             return back()->with('error', $error)->withInput();
         }

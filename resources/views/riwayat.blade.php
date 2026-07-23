@@ -70,7 +70,7 @@
                 <p class="text-gray-500 mb-6">Kamu belum pernah melakukan analisis bahan makanan.</p>
                 <a href="{{ route('analisis') }}"
                     class="inline-flex items-center gap-2 bg-green-500 text-white px-8 py-3 rounded-xl font-bold border-3 border-black shadow-[5px_5px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_rgba(0,0,0,1)] transition-all">
-                    <x-heroicon-o-arrow-up-tray class="w-5 h-5" /> Analisis Sekarang
+                    Analisis Sekarang
                 </a>
             </div>
         @else
@@ -127,17 +127,17 @@
                                 class="flex-1 md:flex-none text-center px-5 py-2.5 bg-yellow-400 font-bold border-2 border-black rounded-md shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[5px_5px_0px_rgba(0,0,0,1)] transition-all">
                                 Detail
                             </a>
-                            <form action="{{ route('riwayat.destroy', $analysis) }}" method="POST"
-                                onsubmit="return confirm('Yakin ingin menghapus analisis ini? Semua data terkait akan dihapus.')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    class="px-5 py-2.5 bg-red-500 text-white font-bold border-2 border-black rounded-md shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[5px_5px_0px_rgba(0,0,0,1)] transition-all">
-                                    Hapus
-                                </button>
-                            </form>
+                            <button type="button" data-modal-open="delete-analysis-{{ $analysis->id }}"
+                                class="px-5 py-2.5 bg-red-500 text-white font-bold border-2 border-black rounded-md shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[5px_5px_0px_rgba(0,0,0,1)] transition-all">
+                                Hapus
+                            </button>
                         </div>
                     </div>
+
+                    <x-modal name="delete-analysis-{{ $analysis->id }}" title="Hapus Analisis"
+                        message="Yakin ingin menghapus analisis ini? Semua data terkait akan dihapus."
+                        :action="route('riwayat.destroy', $analysis)" action-text="Hapus"
+                        action-color="bg-red-500 hover:bg-red-600" />
                 @endforeach
             </div>
 
