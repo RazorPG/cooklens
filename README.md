@@ -1,4 +1,4 @@
-<p align="center"><img src="./public/img/cooklens-app.png" width="200" alt="CookLens Logo"></p>
+<p align="center"><img src="./public/img/cooklens-app.png" width="200" alt="CookLens Logo" style="background: white;"></p>
 
 # CookLens
 
